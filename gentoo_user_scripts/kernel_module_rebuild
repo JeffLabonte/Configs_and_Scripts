@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sudo emerge -1 @module-rebuild

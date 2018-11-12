@@ -1,0 +1,60 @@
+#!/bin/bash
+
+FOLDER_PATH=/home/${USER}/.rclone_file_sync
+FOLDER_TO_SYNC=$(cat $FOLDER_PATH)
+
+function start_rclone {
+    if [ -s $FOLDER_TO_SYNC ]
+    then
+        if [ -f /tmp/rclone ]; then
+            sudo rm /tmp/rclone
+        fi
+        for f in $FOLDER_TO_SYNC;
+        do
+            rclone sync -L $f gdrive: &>/dev/null &
+            echo "Syncing - ${f}"
+        done
+    else
+        echo "*************************** HELP ********************************"
+        echo "Use the 'add' argument to add new folders to sync"
+        echo "*************************** HELP ********************************"
+    fi
+}
+
+function find_status {
+    for f in $FOLDER_TO_SYNC;
+    do
+        ps aux | grep $f
+    done
+}
+
+function handle_new_folder {
+    if [ "$1" != "" ]
+    then
+        if [ -d $1 ]
+        then
+            echo $1 >> $FOLDER_PATH
+            echo "Added $1 to $FOLDER_TO_SYNC"
+        else
+            echo "Please enter a folder"
+        fi
+    else
+        echo "Needs the path to a folder you wish to sync"
+    fi
+}
+
+case $1 in
+    add)
+        handle_new_folder $2
+        ;;
+    start)
+        start_rclone
+        ;;
+    status)
+        find_status
+        ;;
+    stop)
+        kill -9 $(pidof rclone)
+        echo "Service killed"
+        ;;
+esac
