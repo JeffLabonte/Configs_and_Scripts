@@ -1,5 +1,0 @@
-#!/bin/bash
-
-sudo emerge --sync && sudo emerge -avuDN --with-bdeps=y @world
-sudo flatpak update
-flatpak --user update

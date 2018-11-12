@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ -z $1 ] || [ -z $2 ]; then
+  echo "You must specify what you want to look for"
+else
+  find $(pwd) -name "$1" -type f -exec grep $2 /dev/null {} \;
+fi
