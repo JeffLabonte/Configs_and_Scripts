@@ -1,0 +1,12 @@
+# required by dev-python/docker-py-3.5.1::gentoo
+# required by app-emulation/docker-compose-1.23.1-r1::gentoo
+# required by docker-compose (argument)
+=dev-python/docker-pycreds-0.3.0 ~amd64
+# required by app-emulation/docker-18.09.0::gentoo
+# required by app-emulation/docker (argument)
+=app-emulation/runc-1.0.0_rc5_p20180509 ~amd64
+# required by app-emulation/docker-18.09.0::gentoo[container-init]
+# required by app-emulation/docker (argument)
+=sys-process/tini-0.18.0 ~amd64
+# required by app-emulation/docker-compose-1.23.1-r1::gentoo
+# required by docker-compose (argument

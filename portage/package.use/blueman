@@ -1,0 +1,3 @@
+# required by @selected
+# required by @world (argument)
+>=net-wireless/blueman-2.1_alpha2 -python_targets_python3_7

@@ -1,0 +1,7 @@
+# required by x11-libs/libxkbcommon-0.8.2::gentoo[X]
+# required by x11-wm/i3-4.15::gentoo
+# required by i3 (argument)
+>=x11-libs/libxcb-1.13.1 xkb
+# required by x11-wm/i3-4.15::gentoo
+# required by i3 (argument)
+>=x11-libs/cairo-1.14.12 xcb

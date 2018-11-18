@@ -1,0 +1,5 @@
+app-laptop/tlp
+# required by app-laptop/tlp-1.1::tlp
+# required by tlp (argument)
+=sys-power/linux-x86-power-tools-3.17 ~amd64
+

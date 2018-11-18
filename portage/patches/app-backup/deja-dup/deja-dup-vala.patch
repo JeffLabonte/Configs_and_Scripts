@@ -1,0 +1,286 @@
+From 5676766be5e845ccb6cdf46cfa8722497f151752 Mon Sep 17 00:00:00 2001
+From: Jeremy Bicha <jbicha@ubuntu.com>
+Date: Fri, 16 Jun 2017 15:11:37 -0400
+Subject: Use 'ref' keyword for iter, requires vala 0.36
+
+
+diff --git a/deja-dup/widgets/ConfigList.vala b/deja-dup/widgets/ConfigList.vala
+index 15de2d6..02cd81a 100644
+--- a/deja-dup/widgets/ConfigList.vala
++++ b/deja-dup/widgets/ConfigList.vala
+@@ -333,7 +333,7 @@ public class ConfigList : ConfigWidget
+ 
+     model.row_deleted.disconnect(write_to_config);
+     foreach (Gtk.TreeIter iter in iters) {
+-      (model as Gtk.ListStore).remove(iter);
++      (model as Gtk.ListStore).remove(ref iter);
+     }
+     model.row_deleted.connect(write_to_config);
+ 
+diff --git a/deja-dup/widgets/ConfigLocation.vala b/deja-dup/widgets/ConfigLocation.vala
+index 869e2a8..d21c556 100644
+--- a/deja-dup/widgets/ConfigLocation.vala
++++ b/deja-dup/widgets/ConfigLocation.vala
+@@ -397,12 +397,12 @@ public class ConfigLocation : ConfigWidget
+     if (uuid == saved_uuid)
+       return;
+ 
+-    store.remove(iter);
++    store.remove(ref iter);
+ 
+     if (--num_volumes == 0) {
+       Gtk.TreeIter sep_iter;
+       if (store.get_iter_from_string(out sep_iter, index_vol_sep.to_string())) {
+-        store.remove(sep_iter);
++        store.remove(ref sep_iter);
+         index_vol_sep = -2;
+       }
+     }
+-- 
+cgit v0.10.2
+
+
+From c5f1c4a7fdb172331b18f0cad061b4dbc5e79566 Mon Sep 17 00:00:00 2001
+From: Jeremy Bicha <jbicha@ubuntu.com>
+Date: Fri, 16 Jun 2017 15:16:29 -0400
+Subject: Don't use static for const declarations
+
+
+diff --git a/deja-dup/Assistant.vala b/deja-dup/Assistant.vala
+index 79e254b..18f0cbf 100644
+--- a/deja-dup/Assistant.vala
++++ b/deja-dup/Assistant.vala
+@@ -66,12 +66,12 @@ public abstract class Assistant : Gtk.Window
+   public weak List<PageInfo> current;
+   List<PageInfo> infos;
+ 
+-  static const int APPLY = 1;
+-  static const int BACK = 2;
+-  static const int FORWARD = 3;
+-  static const int CANCEL = 4;
+-  static const int CLOSE = 5;
+-  static const int RESUME = 6;
++  const int APPLY = 1;
++  const int BACK = 2;
++  const int FORWARD = 3;
++  const int CANCEL = 4;
++  const int CLOSE = 5;
++  const int RESUME = 6;
+ 
+   construct
+   {
+diff --git a/deja-dup/main.vala b/deja-dup/main.vala
+index 88da3e0..f093375 100644
+--- a/deja-dup/main.vala
++++ b/deja-dup/main.vala
+@@ -30,7 +30,7 @@ class DejaDupApp : Object
+   static bool restoremissing_mode = false;
+   static bool prompt_mode = false;
+   static string[] filenames = null;
+-  static const OptionEntry[] options = {
++  const OptionEntry[] options = {
+     {"version", 0, 0, OptionArg.NONE, ref show_version, N_("Show version"), null},
+     {"restore", 0, 0, OptionArg.NONE, ref restore_mode, N_("Restore given files"), null},
+     {"backup", 0, 0, OptionArg.NONE, ref backup_mode, N_("Immediately start a backup"), null},
+diff --git a/deja-dup/monitor/monitor.vala b/deja-dup/monitor/monitor.vala
+index 040fa93..efb26be 100644
+--- a/deja-dup/monitor/monitor.vala
++++ b/deja-dup/monitor/monitor.vala
+@@ -32,7 +32,7 @@ static DejaDup.FilteredSettings settings = null;
+ static bool testing_delay = true;
+ 
+ static bool show_version = false;
+-static const OptionEntry[] options = {
++const OptionEntry[] options = {
+   {"version", 0, 0, OptionArg.NONE, ref show_version, N_("Show version"), null},
+   {null}
+ };
+diff --git a/deja-dup/nautilus/NautilusExtension.c b/deja-dup/nautilus/NautilusExtension.c
+index c0c5a29..8051164 100644
+--- a/deja-dup/nautilus/NautilusExtension.c
++++ b/deja-dup/nautilus/NautilusExtension.c
+@@ -273,7 +273,7 @@ deja_dup_nautilus_extension_menu_provider_iface_init (NautilusMenuProviderIface
+ 
+ void deja_dup_nautilus_extension_register_type (GTypeModule *module)
+ {
+-  static const GTypeInfo info = {
++  const GTypeInfo info = {
+     sizeof (DejaDupNautilusExtensionClass),
+     (GBaseInitFunc) NULL,
+     (GBaseFinalizeFunc) NULL,
+@@ -290,7 +290,7 @@ void deja_dup_nautilus_extension_register_type (GTypeModule *module)
+     "DejaDupNautilusExtension",
+     &info, 0);
+ 
+-  static const GInterfaceInfo menu_provider_iface_info =
++  const GInterfaceInfo menu_provider_iface_info =
+   {
+     (GInterfaceInitFunc)deja_dup_nautilus_extension_menu_provider_iface_init,
+      NULL,
+diff --git a/deja-dup/preferences/Preferences.vala b/deja-dup/preferences/Preferences.vala
+index 34bf2c0..940cfdc 100644
+--- a/deja-dup/preferences/Preferences.vala
++++ b/deja-dup/preferences/Preferences.vala
+@@ -43,8 +43,8 @@ public class Preferences : Gtk.Grid
+   Gtk.Button restore_button;
+   Gtk.ProgressBar restore_progress;
+   uint bus_watch_id = 0;
+-  static const int PAGE_HMARGIN = 24;
+-  static const int PAGE_VMARGIN = 12;
++  const int PAGE_HMARGIN = 24;
++  const int PAGE_VMARGIN = 12;
+ 
+   public Preferences(DejaDup.PreferencesPeriodicSwitch? auto_switch)
+   {
+diff --git a/deja-dup/widgets/ConfigDelete.vala b/deja-dup/widgets/ConfigDelete.vala
+index e6b5124..eaba656 100644
+--- a/deja-dup/widgets/ConfigDelete.vala
++++ b/deja-dup/widgets/ConfigDelete.vala
+@@ -23,8 +23,8 @@ namespace DejaDup {
+ 
+ public class ConfigDelete : ConfigChoice
+ {
+-  public static const int SEMIANNUALLY = 365/2;
+-  public static const int ANNUALLY = 365;
++  public const int SEMIANNUALLY = 365/2;
++  public const int ANNUALLY = 365;
+   public static int FOREVER = int.MAX;
+ 
+   public ConfigDelete(string key, string ns="") {
+diff --git a/deja-dup/widgets/ConfigLocation.vala b/deja-dup/widgets/ConfigLocation.vala
+index d21c556..b7de69e 100644
+--- a/deja-dup/widgets/ConfigLocation.vala
++++ b/deja-dup/widgets/ConfigLocation.vala
+@@ -23,12 +23,12 @@ namespace DejaDup {
+ 
+ public class ConfigLocation : ConfigWidget
+ {
+-  static const int COL_ICON = 0;
+-  static const int COL_TEXT = 1;
+-  static const int COL_SORT = 2;
+-  static const int COL_UUID = 3;
+-  static const int COL_PAGE = 4;
+-  static const int COL_INDEX = 5;
++  const int COL_ICON = 0;
++  const int COL_TEXT = 1;
++  const int COL_SORT = 2;
++  const int COL_UUID = 3;
++  const int COL_PAGE = 4;
++  const int COL_INDEX = 5;
+ 
+   enum Group {
+     CLOUD = 0,
+diff --git a/libdeja/RecursiveOp.vala b/libdeja/RecursiveOp.vala
+index b5a24a8..5153059 100644
+--- a/libdeja/RecursiveOp.vala
++++ b/libdeja/RecursiveOp.vala
+@@ -84,7 +84,7 @@ public abstract class RecursiveOp : Object
+     op.start_async.begin();
+   }
+ 
+-  static const int NUM_ENUMERATED = 16;
++  const int NUM_ENUMERATED = 16;
+   async void do_dir()
+   {
+     handle_dir();
+diff --git a/libdeja/tools/duplicity/DuplicityJob.vala b/libdeja/tools/duplicity/DuplicityJob.vala
+index 49dc239..7be7917 100644
+--- a/libdeja/tools/duplicity/DuplicityJob.vala
++++ b/libdeja/tools/duplicity/DuplicityJob.vala
+@@ -74,7 +74,7 @@ internal class DuplicityJob : DejaDup.ToolJob
+   
+   bool checked_backup_space = false;
+ 
+-  static const int MINIMUM_FULL = 2;
++  const int MINIMUM_FULL = 2;
+   bool deleted_files = false;
+   int delete_age = 0;
+   
+@@ -794,36 +794,36 @@ internal class DuplicityJob : DejaDup.ToolJob
+       return false;
+   }
+ 
+-  protected static const int ERROR_GENERIC = 1;
+-  protected static const int ERROR_HOSTNAME_CHANGED = 3;
+-  protected static const int ERROR_RESTORE_DIR_NOT_FOUND = 19;
+-  protected static const int ERROR_EXCEPTION = 30;
+-  protected static const int ERROR_GPG = 31;
+-  protected static const int ERROR_BAD_VOLUME = 44;
+-  protected static const int ERROR_BACKEND = 50;
+-  protected static const int ERROR_BACKEND_PERMISSION_DENIED = 51;
+-  protected static const int ERROR_BACKEND_NOT_FOUND = 52;
+-  protected static const int ERROR_BACKEND_NO_SPACE = 53;
+-  protected static const int INFO_PROGRESS = 2;
+-  protected static const int INFO_COLLECTION_STATUS = 3;
+-  protected static const int INFO_DIFF_FILE_NEW = 4;
+-  protected static const int INFO_DIFF_FILE_CHANGED = 5;
+-  protected static const int INFO_DIFF_FILE_DELETED = 6;
+-  protected static const int INFO_PATCH_FILE_WRITING = 7;
+-  protected static const int INFO_PATCH_FILE_PATCHING = 8;
+-  protected static const int INFO_FILE_STAT = 10;
+-  protected static const int INFO_SYNCHRONOUS_UPLOAD_BEGIN = 11;
+-  protected static const int INFO_ASYNCHRONOUS_UPLOAD_BEGIN = 12;
+-  protected static const int INFO_SYNCHRONOUS_UPLOAD_DONE = 13;
+-  protected static const int INFO_ASYNCHRONOUS_UPLOAD_DONE = 14;
+-  protected static const int WARNING_ORPHANED_SIG = 2;
+-  protected static const int WARNING_UNNECESSARY_SIG = 3;
+-  protected static const int WARNING_UNMATCHED_SIG = 4;
+-  protected static const int WARNING_INCOMPLETE_BACKUP = 5;
+-  protected static const int WARNING_ORPHANED_BACKUP = 6;
+-  protected static const int WARNING_CANNOT_READ = 10;
+-  protected static const int WARNING_CANNOT_PROCESS = 12; // basically, cannot write or change attrs
+-  protected static const int DEBUG_GENERIC = 1;
++  protected const int ERROR_GENERIC = 1;
++  protected const int ERROR_HOSTNAME_CHANGED = 3;
++  protected const int ERROR_RESTORE_DIR_NOT_FOUND = 19;
++  protected const int ERROR_EXCEPTION = 30;
++  protected const int ERROR_GPG = 31;
++  protected const int ERROR_BAD_VOLUME = 44;
++  protected const int ERROR_BACKEND = 50;
++  protected const int ERROR_BACKEND_PERMISSION_DENIED = 51;
++  protected const int ERROR_BACKEND_NOT_FOUND = 52;
++  protected const int ERROR_BACKEND_NO_SPACE = 53;
++  protected const int INFO_PROGRESS = 2;
++  protected const int INFO_COLLECTION_STATUS = 3;
++  protected const int INFO_DIFF_FILE_NEW = 4;
++  protected const int INFO_DIFF_FILE_CHANGED = 5;
++  protected const int INFO_DIFF_FILE_DELETED = 6;
++  protected const int INFO_PATCH_FILE_WRITING = 7;
++  protected const int INFO_PATCH_FILE_PATCHING = 8;
++  protected const int INFO_FILE_STAT = 10;
++  protected const int INFO_SYNCHRONOUS_UPLOAD_BEGIN = 11;
++  protected const int INFO_ASYNCHRONOUS_UPLOAD_BEGIN = 12;
++  protected const int INFO_SYNCHRONOUS_UPLOAD_DONE = 13;
++  protected const int INFO_ASYNCHRONOUS_UPLOAD_DONE = 14;
++  protected const int WARNING_ORPHANED_SIG = 2;
++  protected const int WARNING_UNNECESSARY_SIG = 3;
++  protected const int WARNING_UNMATCHED_SIG = 4;
++  protected const int WARNING_INCOMPLETE_BACKUP = 5;
++  protected const int WARNING_ORPHANED_BACKUP = 6;
++  protected const int WARNING_CANNOT_READ = 10;
++  protected const int WARNING_CANNOT_PROCESS = 12; // basically, cannot write or change attrs
++  protected const int DEBUG_GENERIC = 1;
+ 
+   void delete_cache()
+   {
+diff --git a/libdeja/tools/duplicity/DuplicityPlugin.vala b/libdeja/tools/duplicity/DuplicityPlugin.vala
+index 0c8e9e4..ca3b1d0 100644
+--- a/libdeja/tools/duplicity/DuplicityPlugin.vala
++++ b/libdeja/tools/duplicity/DuplicityPlugin.vala
+@@ -28,9 +28,9 @@ public class DuplicityPlugin : DejaDup.ToolPlugin
+     name = "Duplicity";
+   }
+ 
+-  static const int REQUIRED_MAJOR = 0;
+-  static const int REQUIRED_MINOR = 6;
+-  static const int REQUIRED_MICRO = 23;
++  const int REQUIRED_MAJOR = 0;
++  const int REQUIRED_MINOR = 6;
++  const int REQUIRED_MICRO = 23;
+   void do_initial_setup () throws Error
+   {
+     string output;
+-- 
+cgit v0.10.2
+
+

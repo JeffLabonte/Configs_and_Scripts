@@ -1,0 +1,29 @@
+# required by app-backup/deja-dup-34.3::gentoo
+# required by deja-dup (argument)
+>=app-crypt/libsecret-0.18.6-r1 vala
+# required by app-backup/deja-dup-34.3::gentoo
+# required by deja-dup (argument)
+>=dev-libs/glib-2.52.3 dbus
+# required by app-backup/deja-dup-34.3::gentoo
+# required by deja-dup (argument)
+>=gnome-base/gvfs-1.32.2 fuse udisks gnome-keyring 
+
+# required by dev-util/itstool-2.0.2::gentoo
+# required by gnome-extra/yelp-xsl-3.20.1::gentoo
+# required by app-text/yelp-tools-3.18.0::gentoo
+# required by dev-util/gtk-doc-1.25-r1::gentoo
+# required by sys-fs/udisks-2.7.4-r1::gentoo
+# required by gnome-base/gvfs-1.32.2::gentoo[udisks]
+# required by app-backup/deja-dup-34.3::gentoo
+# required by deja-dup (argument)
+>=dev-libs/libxml2-2.9.8 python
+# required by gnome-base/gnome-keyring-3.28.2::gentoo
+# required by app-crypt/libsecret-0.18.6-r1::gentoo
+# required by app-crypt/pinentry-1.1.0-r2::gentoo[gnome-keyring]
+>=app-crypt/gcr-3.28.0 gtk
+# required by gnome-base/gnome-keyring-3.28.2::gentoo
+# required by app-crypt/libsecret-0.18.6-r1::gentoo
+# required by gnome-base/gvfs-1.32.2::gentoo[gnome-keyring]
+# required by app-backup/deja-dup-34.3::gentoo
+# required by deja-dup (argument)
+>=app-crypt/pinentry-1.1.0-r2 gnome-keyring

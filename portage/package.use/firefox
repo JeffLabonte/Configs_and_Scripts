@@ -1,0 +1,6 @@
+# required by www-client/firefox-60.3.0-r1::gentoo
+# required by firefox (argument)
+>=media-libs/libpng-1.6.34 apng
+# required by www-client/firefox-60.3.0-r1::gentoo
+# required by firefox (argument)
+>=dev-lang/python-3.6.5 sqlite
