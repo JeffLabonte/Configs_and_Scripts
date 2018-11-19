@@ -1,0 +1,4 @@
+cross-avr/binutils multilib -pie
+cross-avr/gcc multilib -pie
+cross-avr/avr-libc multilib -pie
+cross-avr/gdb multilib -pie
