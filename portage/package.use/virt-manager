@@ -1,2 +1,1 @@
-app-emulation/virt-manager gtk gnome-keyring
-net-misc/spice-gtk usbredir
+app-emulation/virt-manager gnome-keyring gtk

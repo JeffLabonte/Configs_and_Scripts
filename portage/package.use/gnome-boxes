@@ -1,0 +1,20 @@
+# required by gnome-extra/gnome-boxes-3.24.1-r1::gentoo
+# required by gnome-boxes (argument)
+>=app-emulation/qemu-2.12.1 spice usbredir smartcard
+# required by gnome-extra/gnome-boxes-3.24.1-r1::gentoo
+# required by gnome-boxes (argument)
+>=app-emulation/spice-0.14.0-r2 smartcard
+# required by gnome-extra/gnome-boxes-3.24.1-r1::gentoo
+# required by gnome-boxes (argument)
+>=net-misc/spice-gtk-0.35 usbredir smartcard
+# required by media-video/totem-3.24.0::gentoo
+# required by app-misc/tracker-1.12.4::gentoo[-gstreamer,-ffmpeg]
+# required by gnome-extra/gnome-boxes-3.24.1-r1::gentoo
+# required by gnome-boxes (argument)
+>=media-libs/clutter-1.26.2-r1 gtk
+# required by media-video/totem-3.24.0::gentoo
+# required by app-misc/tracker-1.12.4::gentoo[-gstreamer,-ffmpeg]
+# required by gnome-extra/gnome-boxes-3.24.1-r1::gentoo
+# required by gnome-boxes (argument)
+>=media-libs/clutter-gtk-1.8.4 gtk
+

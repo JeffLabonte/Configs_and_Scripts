@@ -1,0 +1,5 @@
+sys-apps/dbus
+kde-apps/*
+kde-plasma/*
+kde-frameworks/*
+kde-misc/*

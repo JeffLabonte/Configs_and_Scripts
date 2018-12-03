@@ -1,2 +1,8 @@
 # required by google-chrome (argument)
 >=www-client/google-chrome-70.0.3538.102 google-chrome
+# required by virtualbox-bin (argument)
+=app-emulation/virtualbox-bin-5.2.14.123301 PUEL
+# required by virtualbox-extpack-oracle (argument)
+=app-emulation/virtualbox-extpack-oracle-5.2.14.123301 PUEL
+# required by teamviewer (argument)
+>=net-misc/teamviewer-13.2.13582 TeamViewer

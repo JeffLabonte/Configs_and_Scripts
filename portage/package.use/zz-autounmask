@@ -1,1 +1,6 @@
-# package.use
+# required by app-text/calibre-3.26.1::gentoo
+# required by calibre (argument)
+>=app-text/poppler-0.62.0-r1 qt5
+# required by app-text/calibre-3.26.1::gentoo
+# required by calibre (argument)
+>=dev-python/PyQt5-5.10.1-r1 network webkit widgets printsupport svg gui

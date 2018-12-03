@@ -1,0 +1,2 @@
+app-emulation/qemu aio alsa bluetooth bzip2 caps curl fdt filecaps gtk jpeg ncurses opengl pin-upstream-blobs png pulseaudio sdl sdl2 ssh usb usbredir vhost-net vte xattr xfs vnc
+app-emulation/libvirt -policykit
