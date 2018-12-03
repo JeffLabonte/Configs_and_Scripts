@@ -1,0 +1,11 @@
+#!/bin/bash
+
+NVIDIA_POWERED_STRING=$(cat /proc/acpi/bbswitch)
+
+if [[ $NVIDIA_POWERED_STRING == *"ON" ]]; then
+    sudo rmmod nvidia_drm && sudo rmmod nvidia_modeset && sudo rmmod nvidia
+    sudo tee /proc/acpi/bbswitch <<< OFF
+    echo $(cat /proc/acpi/bbswitch)
+else
+    echo "The NVIDIA card isn't running"
+fi
