@@ -43,10 +43,14 @@ Plug 'avelino/vim-bootstrap-updater'
 "" PHP Bundle
 Plug 'arnaud-lb/vim-php-namespace'
 
+Plug 'stephpy/vim-yaml'
 
 " python
 "" Python Bundle
+Plug 'python-mode/python-mode', { 'branch': 'develop' }
+
 Plug 'davidhalter/jedi-vim'
+Plug 'heavenshell/vim-pydocstring'
 
 
 " ruby
@@ -56,6 +60,8 @@ Plug 'tpope/vim-projectionist'
 Plug 'thoughtbot/vim-rspec'
 Plug 'ecomba/vim-ruby-refactoring'
 Plug 'honza/vim-snippets'
+
+Plug 'rust-lang/rust.vim'
 
 "" Color
 Plug 'tomasr/molokai'
@@ -161,3 +167,6 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 noremap <C-h> <C-w>h
+
+nmap <silent> <C-t> <Plug>(pydocstring)
+

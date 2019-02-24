@@ -2,25 +2,7 @@ cross-avr/binutils * -amd64 -~amd64
 cross-avr/gcc * -amd64 -~amd64
 cross-avr/avr-libc * -amd64 -~amd64
 cross-avr/gdb * ~* -amd64 -~amd64
-# required by gnome-extra/gnome-boxes-9999::gnome[-bindist]
-# required by gnome-boxes (argument)
-=gnome-extra/gnome-boxes-nonfree-0.0.2 ~amd64
-# required by net-print/hplip-plugin-3.18.10::gentoo
+# required by dev-lang/rust-1.32.0::gentoo
 # required by @selected
 # required by @world (argument)
-=net-print/hplip-3.18.10 ~amd64
-# required by net-libs/nodejs-8.14.0::gentoo
-# required by www-client/chromium-70.0.3538.110::gentoo
-# required by @selected
-# required by @world (argument)
-=dev-libs/libuv-1.24.0 ~amd64
-# required by net-print/hplip-3.18.10::gentoo[-minimal,qt5,libnotify]
-# required by net-print/hplip-plugin-3.18.10::gentoo
-# required by @selected
-# required by @world (argument)
-=dev-python/notify2-0.3 ~amd64
-# required by spotify (argument)
-=media-sound/spotify-1.0.92 ~amd64
-# required by media-sound/spotify-1.0.92::gentoo
-# required by spotify (argument)
-=dev-util/patchelf-0.9_p20180129 ~amd64
+=net-libs/http-parser-2.9.0-r1 ~amd64

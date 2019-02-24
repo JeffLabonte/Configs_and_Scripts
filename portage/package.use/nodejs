@@ -1,2 +1,2 @@
-net-libs/nodejs icu ssl
+net-libs/nodejs ssl icu 
 net-libs/npm ssl

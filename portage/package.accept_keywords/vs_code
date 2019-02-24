@@ -1,0 +1,10 @@
+# required by app-editors/atom (argument)
+app-editors/visual-studio-code ~amd64
+# required by dev-util/electron-2.0.10::gentoo
+# required by app-editors/atom-1.32.1::gentoo
+# required by app-editors/atom (argument)
+app-eselect/eselect-electron ~amd64
+# required by app-editors/atom-1.32.1::gentoo
+# required by app-editors/atom (argument)
+dev-util/electron ~amd64
+

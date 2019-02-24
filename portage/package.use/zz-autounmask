@@ -4,3 +4,26 @@
 # required by app-text/calibre-3.26.1::gentoo
 # required by calibre (argument)
 >=dev-python/PyQt5-5.10.1-r1 network webkit widgets printsupport svg gui
+# required by www-client/firefox-65.0::gentoo[system-libvpx]
+# required by firefox (argument)
+>=media-libs/libvpx-1.7.0 postproc
+# required by www-client/firefox-65.0::gentoo[system-sqlite]
+# required by firefox (argument)
+>=dev-db/sqlite-3.25.3 secure-delete
+# required by kde-plasma/plasma-meta-5.15.0::gentoo[gtk]
+# required by plasma-meta (argument)
+>=kde-plasma/breeze-gtk-5.15.0 -python_targets_python3_7
+# required by www-client/torbrowser-launcher-0.3.1::torbrowser
+# required by www-client/torbrowser-launcher (argument)
+>=app-crypt/gpgme-1.11.1 python
+# required by app-office/libreoffice-6.1.5.2::gentoo
+# required by libreoffice (argument)
+>=dev-libs/xmlsec-1.2.26 nss
+# required by gnome-base/nautilus-3.30.5::Gnome-3-30-X
+# required by gnome-extra/sushi-3.30.0::Gnome-3-30-X
+>=gnome-base/gvfs-1.36.2 gtk
+# required by app-text/evince-3.30.2::Gnome-3-30-X
+# required by gnome-extra/sushi-3.30.0::Gnome-3-30-X
+# required by gnome-base/nautilus-3.30.5::Gnome-3-30-X[previewer]
+# required by nautilus (argument)
+>=app-text/poppler-0.74.0 cairo
