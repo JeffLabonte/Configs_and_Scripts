@@ -9,6 +9,9 @@ More and more scripts will be hosted in this repository!
 * neofetch
 * bbswitch if you use turn\_off\_nvidia
 * [oh-my-zsh installed](https://github.com/robbyrussell/oh-my-zsh) or [oh-my-bash](https://github.com/ohmybash/oh-my-bash)
+* If you use zsh:
+    * [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
+    * [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 
 I mostly use debian-based distributions so my aliases uses apt to update my system.
 
