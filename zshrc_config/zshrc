@@ -1,52 +1,21 @@
+export TERM="xterm-256color"
+export EDITOR="nvim"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 export LANG="en_US.UTF-8"
 
+export PATH=$PATH:/snap/bin
+export PATH=$PATH:~/.local/bin
+
 neofetch
 
-if [[ $- != *i* ]] ; then
-    ON_A_TTY=No
-else
-    ON_A_TTY=Yes
-fi
-
-# check that an ssh-agent is running
-if [ -x /usr/bin/ssh-agent ]
-then
-    SSH_AGENT_PID=-1
-    if [ -r ${HOME}/.ssh/agent_info ]
-    then
-        #
-        ## #####################################################################
-        ## Share an already existing agent that I have started
-        ## #####################################################################
-        #
-        source ${HOME}/.ssh/agent_info
-    fi
-    #
-    ## #########################################################################
-    ## Make sure the agent is still running
-    ## #########################################################################
-    #
-    if [ ! -r /proc/${SSH_AGENT_PID} ]
-    then
-        ssh-agent > ${HOME}/.ssh/agent_info
-        chmod u=rw,g=,o= ${HOME}/.ssh/agent_info
-        source ${HOME}/.ssh/agent_info # > /dev/null 2>&1
-        #
-        ## #################################################################
-        ## Newly created agent, load up my id_dsa and id_rsa identities
-        ## #################################################################
-        #
-        # now, we have an ssh-agent running, add my identity
-        # if [ "${ON_A_TTY}" = "Yes" ]
-        # then
-        #       xterm -e ssh-add ${HOME}/.ssh/identity
-        # fi
-    fi
-fi 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/jeff/.oh-my-zsh"
+export ZSH="/home/$USER/.oh-my-zsh"
+
+alias update_and_upgrade="sudo apt update && sudo apt dist-upgrade"
+alias reload_zsh="source ~/.zshrc"
+alias edit_zsh="$EDITOR ~/.zshrc"
+
 fpath+=~/.zfunc
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -71,7 +40,7 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+export UPDATE_ZSH_DAYS=13
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -80,7 +49,7 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
@@ -105,8 +74,8 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
-  zsh-autosuggestions
+    zsh-autosuggestions
+    zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -146,35 +115,31 @@ POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="▶ "
 POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context, dir, vcs)
+# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context, dir, vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)
 
-POWERLEVEL9K_CUSTOM_OPENSUSE_ICON="echo $'\uF17C'"
-POWERLEVEL9K_CUSTOM_OPENSUSE_ICON_BACKGROUND=067
-POWERLEVEL9K_CUSTOM_OPENSUSE_ICON_FOREGROUND=015
+POWERLEVEL9K_CUSTOM_LINUX_ICON="echo $'\uF17C'"
+POWERLEVEL9K_CUSTOM_LINUX_ICON_BACKGROUND=067
+POWERLEVEL9K_CUSTOM_LINUX_ICON_FOREGROUND=015
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_opensuse_icon context dir vcs)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_linux_icon virtualenv context dir vcs)
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$PATH:/home/$USER/.bin"
 
-export EDITOR=nvim
-export PATH="$PATH:$HOME/.cargo/bin"
-source /home/jeff/.cargo/env
-export PATH="$PATH:$HOME/.local/bin"
-eval
-            fuck () {
-                TF_PYTHONIOENCODING=$PYTHONIOENCODING;
-                export TF_SHELL=zsh;
-                export TF_ALIAS=fuck;
-                export TF_SHELL_ALIASES=$(alias);
-                export TF_HISTORY="$(fc -ln -10)";
-                export PYTHONIOENCODING=utf-8;
-                TF_CMD=$(
-                    thefuck THEFUCK_ARGUMENT_PLACEHOLDER $@
-                ) && eval $TF_CMD;
-                unset TF_HISTORY;
-                export PYTHONIOENCODING=$TF_PYTHONIOENCODING;
-                test -n "$TF_CMD" && print -s $TF_CMD
-            }
-export PATH="$PATH:/home/jeff/.bin"
+
+# added by pipx (https://github.com/pipxproject/pipx)
+export PATH="/home/jeff/.local/bin:$PATH"
+
+if [ -f ~/.ssh/agent.env ] ; then
+    . ~/.ssh/agent.env > /dev/null
+    if ! kill -0 $SSH_AGENT_PID > /dev/null 2>&1; then
+        echo "Stale agent file found. Spawning new agent… "
+        eval `ssh-agent | tee ~/.ssh/agent.env`
+        ssh-add
+    fi
+else
+    echo "Starting ssh-agent"
+    eval `ssh-agent | tee ~/.ssh/agent.env`
+    ssh-add
+fi
+if [  ]; then source <(kubectl completion zsh); fi
