@@ -1,5 +1,6 @@
 export TERM="xterm-256color"
 export EDITOR="nvim"
+<<<<<<< HEAD
 export VPN_CLI="protonvpn-cli"
 export NVIDIA_POWER_PATH='/sys/bus/pci/devices/0000:00:01.0/power/control'
 export QT_SCALE_FACTOR=2
@@ -21,6 +22,7 @@ alias update_and_upgrade="sudo apt update && sudo apt dist-upgrade"
 alias reload_zsh="source ~/.zshrc"
 alias edit_zsh="$EDITOR ~/.zshrc"
 
+<<<<<<< HEAD
 alias nvidia_powersave="sudo su -c 'echo auto > ${NVIDIA_POWER_PATH}'"
 alias get_nvidia_powerstate="cat ${NVIDIA_POWER_PATH}"
 
@@ -153,6 +155,7 @@ else
     eval `ssh-agent | tee ~/.ssh/agent.env`
     ssh-add
 fi
+<<<<<<< HEAD
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 # __conda_setup="$('/home/jflabonte/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
@@ -2394,3 +2397,6 @@ BASH_COMPLETION_EOF
 }
 __kops_bash_source <(__kops_convert_bash_to_zsh)
 _complete kops 2>/dev/null
+=======
+if [  ]; then source <(kubectl completion zsh); fi
+>>>>>>> 893a2f5229c41f0b16531c87ff9d974e244ed8b4

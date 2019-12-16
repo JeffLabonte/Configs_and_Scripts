@@ -6,3 +6,7 @@
 =app-emulation/virtualbox-extpack-oracle-5.2.14.123301 PUEL
 # required by teamviewer (argument)
 >=net-misc/teamviewer-13.2.13582 TeamViewer
+# required by anydesk (argument)
+>=net-misc/anydesk-4.0.1-r1 AnyDesk-TOS
+# required by virtualbox-extpack-oracle (argument)
+>=app-emulation/virtualbox-extpack-oracle-6.0.4.128413 PUEL
