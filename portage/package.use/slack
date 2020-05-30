@@ -1,0 +1,6 @@
+net-im/slack appindicator suid
+# required by dev-libs/libappindicator-12.10.0-r301::gentoo
+# # required by net-im/slack-4.4.2::gentoo[appindicator]
+# # required by slack (argument)
+dev-libs/libdbusmenu gtk3
+

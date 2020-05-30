@@ -1,2 +1,1 @@
-app-portage/layman git bazaar cvs mercurial subversion sync-plugin-portage
-app-portage/layman git
+app-portage/layman sync-plugin-portage git

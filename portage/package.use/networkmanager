@@ -1,5 +1,0 @@
-# required by net-misc/networkmanager-1.10.10::gentoo[wifi]
-# required by networkmanager (argument)
->=net-wireless/wpa_supplicant-2.6-r6 dbus
-
-# net-misc/networkmanager resolvconf

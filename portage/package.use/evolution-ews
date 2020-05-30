@@ -1,6 +1,0 @@
-# required by net-libs/webkit-gtk-2.22.2::gentoo
-# required by mail-client/evolution-3.24.6::gentoo
-# required by gnome-extra/evolution-ews-3.24.6::gentoo
-# required by evolution-ews (argument)
->=media-libs/harfbuzz-1.9.0 icu
-

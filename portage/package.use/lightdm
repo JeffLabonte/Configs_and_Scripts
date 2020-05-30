@@ -1,7 +1,0 @@
-# required by dev-lang/spidermonkey-52.9.1_pre1::gentoo
-# required by sys-auth/polkit-0.115-r1::gentoo
-# required by sys-apps/accountsservice-0.6.50-r1::gentoo
-# required by x11-misc/lightdm-1.26.0-r1::gentoo[gnome]
-# required by x11-misc/lightdm-gtk-greeter-2.0.5-r1::gentoo
-# required by x11-misc/lightdm-gtk-greeter (argument)
->=dev-lang/python-2.7.15:2.7 sqlite

@@ -1,4 +1,0 @@
-# required by @selected
-# required by @world (argument)
-net-wireless/blueman -python_targets_python3_7
-net-wireless/bluez user-session

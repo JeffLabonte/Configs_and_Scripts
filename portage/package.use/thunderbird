@@ -1,0 +1,7 @@
+# required by mail-client/thunderbird-68.8.0::gentoo[system-sqlite]
+# required by thunderbird (argument)
+dev-db/sqlite secure-delete
+# required by mail-client/thunderbird-68.8.1::gentoo
+# required by thunderbird (argument)
+media-libs/libpng apng
+

@@ -1,6 +1,0 @@
-# required by neovim (argument)
-=app-editors/neovim-0.3.1 ~amd64
-# required by app-editors/neovim-0.3.1::gentoo
-# required by neovim (argument)
-=dev-libs/msgpack-1.1.0 ~amd64
-

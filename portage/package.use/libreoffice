@@ -1,0 +1,3 @@
+# required by app-office/libreoffice-6.4.3.2::gentoo
+# required by libreoffice (argument)
+dev-libs/xmlsec nss

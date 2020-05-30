@@ -1,22 +1,4 @@
-# required by dev-qt/qt-creator-4.6.2::gentoo
-# required by qt-creator (argument)
->=dev-libs/botan-1.10.17-r2:0 threads
-# required by dev-qt/qt-creator-4.6.2::gentoo[webengine]
-# required by qt-creator (argument)
->=dev-qt/qtwebengine-5.11.2 widgets
-# required by dev-qt/qtwebengine-5.11.2::gentoo
-# required by dev-qt/qt-creator-4.6.2::gentoo[webengine]
-# required by qt-creator (argument)
->=dev-qt/qtwebchannel-5.11.2 qml
-# required by dev-qt/qtwebengine-5.11.2::gentoo
-# required by dev-qt/qt-creator-4.6.2::gentoo[webengine]
-# required by qt-creator (argument)
->=media-libs/libvpx-1.5.0 svc
-# required by dev-qt/qt-creator-4.6.2::gentoo[webengine]
-# required by qt-creator (argument)
-dev-qt/qtwebengine widgets
-# required by dev-qt/qtwebengine-5.11.1::gentoo
-# required by dev-qt/qt-creator-4.6.2::gentoo[webengine]
-# required by qt-creator (argument)
-dev-qt/qtwebchannel qml
-
+dev-qt/qtgui egl vulkan
+dev-qt/qtwayland vulkan
+dev-qt/qtdeclarative vulkan
+dev-qt/qtcore icu

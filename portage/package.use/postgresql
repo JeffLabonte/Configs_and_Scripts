@@ -1,6 +1,0 @@
-# required by dev-qt/qtcore-5.11.1-r1::gentoo
-# required by dev-qt/qtnetwork-5.11.1::gentoo
-# required by dev-db/pgadmin4-3.5::gentoo
-# required by pgadmin4 (argument)
->=dev-libs/libpcre2-10.30 pcre16
-

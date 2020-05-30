@@ -1,1 +1,1 @@
-net-misc/remmina rdp vnc telepathy ssh
+net-misc/remmina spice rdp ssh vnc

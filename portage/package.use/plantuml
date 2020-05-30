@@ -1,0 +1,5 @@
+# required by media-gfx/graphviz-2.42.3::gentoo
+# required by media-gfx/plantuml-1.2020.0::gentoo
+# required by plantuml (argument)
+>=media-libs/gd-2.3.0 fontconfig
+

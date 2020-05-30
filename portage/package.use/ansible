@@ -1,0 +1,12 @@
+# required by dev-python/pyzmq-19.0.0::gentoo[-test]
+# required by dev-python/qtconsole-4.3.1::gentoo
+# required by dev-python/ipython-7.5.0::gentoo[qt5]
+# required by dev-python/ipykernel-5.1.4::gentoo[-test]
+# required by dev-python/ipyparallel-6.2.3::gentoo
+>=net-libs/zeromq-4.3.2 drafts
+# required by dev-python/qtconsole-4.3.1::gentoo
+# required by dev-python/ipython-7.5.0::gentoo[qt5]
+# required by dev-python/ipykernel-5.1.4::gentoo[-test]
+# required by dev-python/ipyparallel-6.2.3::gentoo
+>=dev-python/PyQt5-5.14.1-r1 svg
+

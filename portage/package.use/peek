@@ -1,0 +1,4 @@
+# required by media-video/peek-1.5.1::gentoo
+# # required by peek (argument)
+>=media-video/ffmpeg-4.2.2 vpx
+

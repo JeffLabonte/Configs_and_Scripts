@@ -1,0 +1,2 @@
+sys-libs/libcap -pam
+sys-libs/pam -filecaps

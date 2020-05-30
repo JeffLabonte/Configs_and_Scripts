@@ -1,1 +1,1 @@
-net-p2p/transmission gtk xfs
+net-p2p/transmission -qt5 appindicator

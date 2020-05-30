@@ -1,0 +1,13 @@
+www-client/chromium widevine
+# required by www-client/chromium-81.0.4044.138::gentoo
+# required by chromium (argument)
+net-libs/nodejs inspector icu
+#required by www-client/chromium-81.0.4044.138::gentoo
+# required by @selected
+# required by @world (argument)
+dev-libs/libxml2 icu
+# required by www-client/chromium-81.0.4044.138::gentoo
+# required by @selected
+# required by @world (argument)
+media-libs/harfbuzz icu
+

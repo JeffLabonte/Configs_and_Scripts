@@ -1,8 +1,0 @@
-cross-avr/binutils * -amd64 -~amd64
-cross-avr/gcc * -amd64 -~amd64
-cross-avr/avr-libc * -amd64 -~amd64
-cross-avr/gdb * ~* -amd64 -~amd64
-# required by dev-lang/rust-1.32.0::gentoo
-# required by @selected
-# required by @world (argument)
-=net-libs/http-parser-2.9.0-r1 ~amd64

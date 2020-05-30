@@ -1,12 +1,26 @@
-# required by google-chrome (argument)
->=www-client/google-chrome-70.0.3538.102 google-chrome
-# required by virtualbox-bin (argument)
-=app-emulation/virtualbox-bin-5.2.14.123301 PUEL
-# required by virtualbox-extpack-oracle (argument)
-=app-emulation/virtualbox-extpack-oracle-5.2.14.123301 PUEL
-# required by teamviewer (argument)
->=net-misc/teamviewer-13.2.13582 TeamViewer
+# required by x11-base/xorg-drivers-1.20-r2::gentoo[video_cards_nvidia]
+# required by x11-base/xorg-server-1.20.7::gentoo[xorg]
+# required by x11-drivers/xf86-input-evdev-2.10.6::gentoo
+x11-drivers/nvidia-drivers NVIDIA-r2
+# required by sys-kernel/linux-firmware (argument)
+sys-kernel/linux-firmware linux-fw-redistributable no-source-code
+# required by sys-firmware/intel-microcode (argument)
+sys-firmware/intel-microcode intel-ucode
+# required by slack (argument)
+>=net-im/slack-4.4.2 all-rights-reserved
+# required by discord-bin (argument)
+>=net-im/discord-bin-0.0.10 all-rights-reserved
+# required by typora (argument)
+>=app-editors/typora-0.9.29 Typora
+# required by typora (argument)
+>=app-editors/typora-20200320 EULA
+# required by teams (argument)
+>=net-im/teams-1.3.00.5153 ms-teams-pre
+# required by pycharm-professional (argument)
+>=dev-util/pycharm-professional-2020.1.1 PyCharm PyCharm_Academic PyCharm_Classroom PyCharm_OpenSource PyCharm_Preview
+# required by gitkraken (argument)
+>=dev-vcs/gitkraken-6.6.0 EULA
+# required by protonmail-bridge-bin (argument)
+>=mail-mta/protonmail-bridge-bin-1.2.6 protonmail-bridge-EULA
 # required by anydesk (argument)
->=net-misc/anydesk-4.0.1-r1 AnyDesk-TOS
-# required by virtualbox-extpack-oracle (argument)
->=app-emulation/virtualbox-extpack-oracle-6.0.4.128413 PUEL
+>=net-misc/anydesk-5.5.6 AnyDesk-TOS
