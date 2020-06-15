@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ -z $1 ]; then
+   echo "Sorry need a fontname"
+else
+  fc-list | grep -i $1
+fi

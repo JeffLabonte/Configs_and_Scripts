@@ -1,0 +1,15 @@
+#!bash
+
+INPUT=$1
+
+case $INPUT in
+    "powersave"|"performance")
+        echo "Setting governor to: $INPUT"
+        sudo su -c "cpupower frequency-set -g $INPUT"
+        ;;
+    *)
+        echo "We accept:"
+        echo "1: powersave"
+        echo "2: performance"
+        ;;
+esac

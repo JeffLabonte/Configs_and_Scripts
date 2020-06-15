@@ -1,0 +1,3 @@
+#!/bin/bash
+
+source ~/.config/doo_bbb.config && sshpass -p "$SSH_PASSWORD" rsync -avzP -e "ssh -p ${SYNC_SSH_PORT}" ${CODE_PATH} ${SYNC_SSH_USER}@${SSH_IP}:/opt/doo_development

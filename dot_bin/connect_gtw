@@ -1,0 +1,3 @@
+#!bash
+
+source ~/.config/doo_bbb.config && sshpass -p $SSH_PASSWORD ssh debian@$SSH_IP -p 22200
