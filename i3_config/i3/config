@@ -45,7 +45,7 @@ font pango:DejaVu Sans 13
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec gnome-terminal
+bindsym $mod+Return exec kitty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -55,16 +55,19 @@ bindsym $mod+Shift+q kill
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-bindsym $mod+d exec --no-startup-id rofi -show
+bindsym $mod+p exec --no-startup-id rofi -show run
+bindsym $mod+d exec --no-startup-id rofi -show window
+
 
 #lock computer
-bindsym $mod+Shift+x exec i3lock-fancy -p
+# bindsym $mod+Shift+x exec i3lock -c 000000
+bindsym ctrl+$mod+l exec --no-startup-id i3lock-fancy -d -p -t "TUXBOX" && xset dpms force suspend
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -73,10 +76,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -85,7 +88,9 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+
+# split in horizontal orientation
+# bindsym $mod+h split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -134,6 +139,9 @@ bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
+
+# # allow to use multiple screens
+# bindsym $mod+p move workspace to output right
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -196,23 +204,34 @@ client.urgent $base02 $base08 $base00 $base0F
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+    status_command i3status
+	position top
+    colors {
+	    background #2f343f
+	    statusline #2f343f
+	    separator #4b5262
+        # colour of border, background, and text
+        focused_workspace       #2f343f #bf616a #d8dee8
+        active_workspace        #2f343f #2f343f #d8dee8
+        inactive_workspace      #2f343f #2f343f #d8dee8
+        urgent_workspace       #2f343f #ebcb8b #2f343f
         #status_command i3status
-        status_command $HOME/.bin/conky-i3bar
-        position top
-        tray_padding 1px
-        strip_workspace_numbers yes
-        #bindsym button4 nop
-        #bindsym button5 nop
-        colors {
-              separator $base03
-              background $base01
-              statusline $base05
-#                        border  background text
-              focused_workspace  $base01 $base01    $base07
-              active_workspace   $base01 $base02    $base03
-              inactive_workspace $base01 $base01    $base03
-              urgent_workspace   $base01 $base01    $base08
-        }
+        #position top
+        #tray_padding 1px
+        #strip_workspace_numbers yes
+        ##bindsym button4 nop
+        ##bindsym button5 nop
+        #colors {
+        #      separator $base03
+        #      background $base01
+        #      statusline $base05
+#       #                 border  background text
+        #      focused_workspace  $base01 $base01    $base07
+        #      active_workspace   $base01 $base02    $base03
+        #      inactive_workspace $base01 $base01    $base03
+        #      urgent_workspace   $base01 $base01    $base08
+        #}
+    }
 }
 
 set $keyboard_layout Keyboard Layout: (f) Canadian French, (e) US English
@@ -228,14 +247,15 @@ mode "$keyboard_layout" {
 bindsym $mod+shift+Z mode "$keyboard_layout"
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 5%+
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 5%-
+bindsym XF86AudioMute exec --no-startup-id amixer set Master toggle
+
 
 # # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec lux -a 5% # increase screen brightness
-bindsym XF86MonBrightnessDown exec lux -s 5% # decrease screen brightness
-#
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+
 # # Touchpad controls
 # bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
 #
@@ -249,12 +269,13 @@ exec --no-startup-id pasystray
 # SSH Sessions
 exec --no-startup-id /usr/lib/gnome-settings-daemon/gnome-settings-daemon
 # Set wallpaper
-exec_always feh --bg-scale ~/Pictures/archlinux.jpg
+exec_always nitrogen --restore
 # Set tapping enable for touchpad
 # exec_always xinput set-prop "SynPS/2 Synaptics TouchPad" 287 1
 # Open nm applet on start
 exec_always --no-startup-id nm-applet
 exec_always blueman-applet
-# TODO Figure out why it doesn't work
-#exec xrandr --dpi 200 && exec i3
-exec_always compton -f
+exec xrandr --output eDP1 --mode "1920x1080"
+exec_always pixcom 
+exec --no-startup-id xss-lock -- ~/.config/i3/lock.sh
+
