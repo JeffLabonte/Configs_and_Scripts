@@ -19,9 +19,14 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
+
+Plug 'zchee/deoplete-jedi'
+
 Plug 'junegunn/fzf'
 
+Plug 'maralla/completor.vim'
 
+"basic stuff
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'tpope/vim-commentary'
@@ -31,7 +36,6 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
-Plug 'vim-scripts/grep.vim'
 Plug 'vim-scripts/CSApprox'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'Raimondi/delimitMate'
@@ -49,7 +53,7 @@ Plug 'stephpy/vim-yaml'
 "" Python Bundle
 Plug 'python-mode/python-mode', { 'branch': 'develop' }
 
-Plug 'davidhalter/jedi-vim'
+" Plug 'davidhalter/jedi-vim'
 Plug 'heavenshell/vim-pydocstring'
 
 
@@ -63,8 +67,30 @@ Plug 'honza/vim-snippets'
 
 Plug 'rust-lang/rust.vim'
 
+
+Plug 'ekalinin/dockerfile.vim'
+
+" Jenkinsfile support
+Plug 'marslo/jenkinsfile-vim-syntax'
+
 "" Color
 Plug 'tomasr/molokai'
+
+"" tools
+Plug 'kien/ctrlp.vim'
+Plug 'mattn/emmet-vim'
+Plug 'jamshedvesuna/vim-markdown-preview'
+
+"" Terraform
+Plug 'hashivim/vim-terraform'
+Plug 'vim-syntastic/syntastic'
+Plug 'juliosueiras/vim-terraform-completion'
+
+"" haskell
+Plug 'neovimhaskell/haskell-vim'
+Plug 'mhinz/vim-grepper'
+Plug 'parsonsmatt/intero-neovim'
+
 
 "*****************************************************************************
 "" Custom bundles
@@ -75,14 +101,20 @@ Plug 'tomasr/molokai'
 Plug 'jelera/vim-javascript-syntax'
 call plug#end()
 
+
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 1
-let g:deoplete#enable_smart_case = 1
 let g:deoplete#enable_camel_case = 1
-let g:deoplete#enable_refresh_always = 1
 let g:deoplete#max_abbr_width = 0
 let g:deoplete#max_menu_width = 0
-let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
+let g:deoplete#omni_patterns = {}
+let g:deoplete#omni_patterns.terraform = '[^ *\t"{=$]\w*'
+call deoplete#initialize()
+
+let vim_markdown_preview_github=1
+let vim_markdown_preview_toggle=3
+let vim_markdown_preview_hotkey='<C-m>'
+let vim_markdown_preview_browser='Google Chrome'
 
 
 let g:LanguageClient_serverCommands = {
@@ -122,6 +154,9 @@ set mousemodel=popup
 set t_Co=256
 set guioptions=egmrti
 set gfn=Monospace\ 10
+
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
 
 "" Fix backspace indent
 set backspace=indent,eol,start
@@ -170,3 +205,92 @@ noremap <C-h> <C-w>h
 
 nmap <silent> <C-t> <Plug>(pydocstring)
 
+
+" add yaml stuffs
+au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+" Grepper leader means \
+"Use Grepper
+nnoremap <leader>ga :Grepper<cr>
+nnoremap <leader>gb :Grepper -buffer<cr>
+
+" Haskell Vim
+let g:haskell_classic_highlighting = 1
+let g:haskell_indent_if = 3
+let g:haskell_indent_case = 2
+let g:haskell_indent_let = 4
+let g:haskell_indent_where = 6
+let g:haskell_indent_before_where = 2
+let g:haskell_indent_after_bare_where = 2
+let g:haskell_indent_do = 3
+let g:haskell_indent_in = 1
+let g:haskell_indent_guard = 2
+let g:haskell_indent_case_alternative = 1
+let g:cabal_indent_section = 2
+
+" Intero Configs
+" Automatically reload on save
+au BufWritePost *.hs InteroReload
+
+" Lookup the type of expression under the cursor
+au FileType haskell nmap <silent> <leader>t <Plug>InteroGenericType
+au FileType haskell nmap <silent> <leader>T <Plug>InteroType
+" Insert type declaration
+au FileType haskell nnoremap <silent> <leader>ni :InteroTypeInsert<CR>
+" Show info about expression or type under the cursor
+au FileType haskell nnoremap <silent> <leader>i :InteroInfo<CR>
+
+" Open/Close the Intero terminal window
+au FileType haskell nnoremap <silent> <leader>nn :InteroOpen<CR>
+au FileType haskell nnoremap <silent> <leader>nh :InteroHide<CR>
+
+" Reload the current file into REPL
+au FileType haskell nnoremap <silent> <leader>nf :InteroLoadCurrentFile<CR>
+" Jump to the definition of an identifier
+au FileType haskell nnoremap <silent> <leader>ng :InteroGoToDef<CR>
+" Evaluate an expression in REPL
+au FileType haskell nnoremap <silent> <leader>ne :InteroEval<CR>
+
+" Start/Stop Intero
+au FileType haskell nnoremap <silent> <leader>ns :InteroStart<CR>
+au FileType haskell nnoremap <silent> <leader>nk :InteroKill<CR>
+
+" Reboot Intero, for when dependencies are added
+au FileType haskell nnoremap <silent> <leader>nr :InteroKill<CR> :InteroOpen<CR>
+
+" Managing targets
+" Prompts you to enter targets (no silent):
+au FileType haskell nnoremap <leader>nt :InteroSetTargets<CR>
+
+" Run the spec in the current file
+au FileType haskell nnoremap <silent> <leader>nb :InteroSend hspec spec<CR>
+
+" Syntastic Config
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" (Optional)Remove Info(Preview) window
+set completeopt-=preview
+
+" (Optional)Hide Info(Preview) window after completions
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+" (Optional) Enable terraform plan to be include in filter
+let g:syntastic_terraform_tffilter_plan = 1
+
+" (Optional) Default: 0, enable(1)/disable(0) plugin's keymapping
+let g:terraform_completion_keys = 1
+
+" (Optional) Default: 1, enable(1)/disable(0) terraform module registry completion
+let g:terraform_registry_module_completion = 1
+
+" Set the default interpreter to Python 3
+let g:deoplete#sources#jedi#python_path = 'python3'
