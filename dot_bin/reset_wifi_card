@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 from functools import partial
 from subprocess import Popen, PIPE
 from typing import List
@@ -27,8 +28,9 @@ def run_command(args: List):
     command = Popen(['sudo'] + [a for a in args],
                     stdout=PIPE,
                     stdin=PIPE)
-    stdout, err = command.communicate()
-    print(stdout)
+    _, err = command.communicate()
+    if not err:
+        print(f'Command {args} ran successfully')
 
 
 def wifi_module_handling(action: str = 'rmmod'):
