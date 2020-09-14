@@ -1,0 +1,57 @@
+#!/usr/bin/python3
+from functools import partial
+from subprocess import Popen, PIPE
+from typing import List
+from time import sleep
+
+
+MODULE_TO_RELOAD = (
+    'ath10k_pci',
+    'ath10k_core',
+)
+
+SYSTEMCTL_STOP_ARGS = (
+    'systemctl',
+    'stop',
+    'NetworkManager.service',
+)
+
+SYSTEMCTL_START_ARGS = (
+    'systemctl',
+    'start',
+    'NetworkManager.service',
+)
+
+
+def run_command(args: List):
+    command = Popen(['sudo'] + [a for a in args],
+                    stdout=PIPE,
+                    stdin=PIPE)
+    stdout, err = command.communicate()
+    print(stdout)
+
+
+def wifi_module_handling(action: str = 'rmmod'):
+    if action in ['rmmod', 'modprobe']:
+        for module in MODULE_TO_RELOAD:
+            run_command(args=[action, module])
+
+
+# Order must kept in order to work
+CMD_ARGS_MAPPING = {
+    'systemctl_stop': partial(run_command, args=SYSTEMCTL_STOP_ARGS),
+    'rmmod': partial(wifi_module_handling, action='rmmod'),
+    'modprobe': partial(wifi_module_handling, action='modprobe'),
+    'systemctl_start': partial(run_command, args=SYSTEMCTL_START_ARGS),
+}
+
+
+def main():
+    for name, cmd in CMD_ARGS_MAPPING.items():
+        print(f'Running: {name}')
+        cmd()
+        sleep(0.5)
+
+
+if __name__ == '__main__':
+    main()
