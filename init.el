@@ -9,7 +9,11 @@
 (defvar deps
   '(all-the-icons
     better-defaults
+    dockerfile-mode
     elpy
+    flycheck
+    py-autopep8
+    blacken
     evil
     neotree
     makefile-executor
@@ -41,6 +45,9 @@
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook 'flycheck-mode))
 
+;; Enable autopep8
+(require 'py-autopep8)
+(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
 ;; Enable yaml-mode
 (require 'yaml-mode)
@@ -65,7 +72,10 @@
 (global-set-key (kbd "C-x h") 'windmove-left)
 (global-set-key (kbd "C-x l") 'windmove-right)
 
-(global-set-key (kbd "C-c k") 'windmove-right)
+;;(global-set-key (kbd "C-c k") 'windmove-right)
+
+(global-set-key (kbd "C-x C-k") 'kill-buffer)
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
