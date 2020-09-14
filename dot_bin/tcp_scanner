@@ -1,0 +1,20 @@
+#!/bin/bash
+
+SCAN_FILE="MySQL.scan"
+OPEN_PORT_FILE="MySQL.open"
+
+echo "Begin IP :"
+read begin_ip
+
+echo "End bit :"
+read end_bit
+
+echo "Port :"
+read port
+
+nmap -sT $begin_ip-$end_bit -p ${port} > /dev/null -oG $SCAN_FILE
+
+cat $SCAN_FILE | grep open > $OPEN_PORT_FILE
+cat $OPEN_PORT_FILE
+
+rm $OPEN_PORT_FILE $SCAN_FILE
