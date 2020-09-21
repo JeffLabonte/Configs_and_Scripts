@@ -10,14 +10,14 @@
   '(all-the-icons
     better-defaults
     dockerfile-mode
-    elpy
-    flycheck
-    py-autopep8
     blacken
     evil
+    ido
+    jedi
     neotree
     makefile-executor
     material-theme
+    py-autopep8
     yaml-mode
     )
   )
@@ -27,6 +27,10 @@
             (package-install package)))
       deps)
 
+;; ENable IDO
+(require 'ido)
+(ido-mode t)
+
 ;; Enable Neotree
 (require 'neotree)
 (global-set-key [f8] 'neotree-toggle) ;; F8 - Open neotree
@@ -35,19 +39,11 @@
 (require 'evil)
 (evil-mode 1)
 
-;; Enable elpy
-(elpy-enable)
-
-(setq elpy-rpc-backend "jedi")
-;; Enable Flycheck
-
-(when (require 'flycheck nil t)
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (add-hook 'elpy-mode-hook 'flycheck-mode))
-
-;; Enable autopep8
 (require 'py-autopep8)
 (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+
+
+(add-hook 'python-mode-hook 'jedi:setup)
 
 ;; Enable yaml-mode
 (require 'yaml-mode)
@@ -82,7 +78,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (evil))))
+ '(package-selected-packages '(python-black evil)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -101,3 +97,5 @@
             (define-key evil-normal-state-local-map (kbd "p") 'neotree-previous-line)
             (define-key evil-normal-state-local-map (kbd "A") 'neotree-stretch-toggle)
             (define-key evil-normal-state-local-map (kbd "H") 'neotree-hidden-file-toggle)))
+
+
