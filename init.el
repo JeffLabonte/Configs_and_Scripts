@@ -11,13 +11,15 @@
     better-defaults
     dockerfile-mode
     blacken
+    elpy
     evil
     ido
-    jedi
     neotree
+    markdown-mode
     makefile-executor
     material-theme
     py-autopep8
+    pyvenv
     yaml-mode
     )
   )
@@ -31,6 +33,9 @@
 (require 'ido)
 (ido-mode t)
 
+;; Enable elpy
+(elpy-enable)
+
 ;; Enable Neotree
 (require 'neotree)
 (global-set-key [f8] 'neotree-toggle) ;; F8 - Open neotree
@@ -42,9 +47,6 @@
 (require 'py-autopep8)
 (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
-
-(add-hook 'python-mode-hook 'jedi:setup)
-
 ;; Enable yaml-mode
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
@@ -55,7 +57,7 @@
 
 (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 (setq python-shell-interpreter "/usr/bin/python3")
-
+(setq elpy-rpc-python-command "python3")
 
 ;; Move from buffer to buffer
 (global-set-key (kbd "C-x <up>") 'windmove-up)
@@ -78,7 +80,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(python-black evil)))
+ '(package-selected-packages (quote (python-black evil))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
