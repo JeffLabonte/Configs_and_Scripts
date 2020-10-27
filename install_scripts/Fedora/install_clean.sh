@@ -1,11 +1,19 @@
 #!/bin/bash
 
-sudo dnf install emacs neovim vim buildah podman podman-compose
+sudo dnf install emacs neovim vim
+sudo dnf remove podman podman-compose buildah
 
-echo "docker is now podman"
-echo -e "alias docker=\"podman\"\n$(cat ~/.zshrc)" > ~/.zshrc
+sudo dnf remove docker-*
+sudo dnf config-manager --disable docker-*
 
-echo "docker-compose is now podman-compose"
-echo -e "alias docker-compose=\"podman-compose\"\n$(cat ~/.zshrc)" > ~/.zshrc
+sudo grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
 
-source ~/.zshrc
+sudo firewall-cmd --permanent --zone=trusted --add-interface=docker0
+sudo firewall-cmd --permanent --zone=FedoraWorkstation --add-masquerade
+
+sudo dnf install moby-engine docker-compose
+
+sudo systemctl enable docker
+
+sudo groupadd docker
+sudo usermod -aG docker $USER
