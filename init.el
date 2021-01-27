@@ -79,7 +79,7 @@
 (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 ;; (setq python-shell-interpreter "/usr/bin/python3")
 
-(setq plantuml-jar-path "/home/jflabonte/.bin/plantuml.jar")
+(setq plantuml-jar-path "~/.bin/plantuml.jar")
 (setq plantuml-default-exec-mode 'jar)
 
 ;; Move from buffer to buffer
