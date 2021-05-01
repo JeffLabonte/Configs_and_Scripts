@@ -19,6 +19,7 @@
     markdown-mode
     makefile-executor
     material-theme
+    projectile
     plantuml-mode
     py-autopep8
     pyvenv
@@ -58,6 +59,7 @@
 (evil-mode 1)
 
 (require 'py-autopep8)
+(setq py-autopep8-options '("--max-line-length=120"))
 (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
 ;; Enable Flycheck
@@ -103,7 +105,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (plantuml-mode python-black evil))))
+ '(package-selected-packages (quote (projectile plantuml-mode python-black evil))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
