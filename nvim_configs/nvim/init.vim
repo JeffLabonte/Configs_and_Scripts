@@ -20,10 +20,7 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'do': 'bash install.sh',
     \ }
 
-Plug 'zchee/deoplete-jedi'
-
 Plug 'junegunn/fzf'
-
 Plug 'maralla/completor.vim'
 
 "basic stuff
@@ -43,35 +40,19 @@ Plug 'majutsushi/tagbar'
 Plug 'scrooloose/syntastic'
 Plug 'Yggdroot/indentLine'
 Plug 'avelino/vim-bootstrap-updater'
-" php
-"" PHP Bundle
-Plug 'arnaud-lb/vim-php-namespace'
-
 Plug 'stephpy/vim-yaml'
 
 " python
 "" Python Bundle
-Plug 'python-mode/python-mode', { 'branch': 'develop' }
-
-" Plug 'davidhalter/jedi-vim'
 Plug 'heavenshell/vim-pydocstring'
+Plug 'zchee/deoplete-jedi'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build' }
 
-
-" ruby
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-rake'
-Plug 'tpope/vim-projectionist'
-Plug 'thoughtbot/vim-rspec'
-Plug 'ecomba/vim-ruby-refactoring'
-Plug 'honza/vim-snippets'
 
 Plug 'rust-lang/rust.vim'
 
-
 Plug 'ekalinin/dockerfile.vim'
-
-" Jenkinsfile support
-Plug 'marslo/jenkinsfile-vim-syntax'
 
 "" Color
 Plug 'tomasr/molokai'
@@ -135,6 +116,19 @@ let g:tern_request_timeout = 6000
 let g:tern#command = ["tern"]
 let g:tern#arguments = ["--persistent"]
 
+nmap <silent> gd <Plug>(coc-definition)
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+nmap <leader>rn <Plug>(coc-rename)
+
 set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8
@@ -173,6 +167,12 @@ if exists("*fugitive#statusline")
   set statusline+=%{fugitive#statusline()}
 endif
 
+" disable autocompletion, because we use deoplete for completion
+let g:jedi#completions_enabled = 0
+
+" open the go-to function in split, not another buffer
+let g:jedi#use_splits_not_buffers = "right"
+
 " vim-airline
 let g:airline_theme = 'powerlineish'
 let g:airline#extensions#syntastic#enabled = 1
@@ -205,6 +205,7 @@ noremap <C-h> <C-w>h
 
 nmap <silent> <C-t> <Plug>(pydocstring)
 
+let mapleader = " " " map leader to Space
 
 " add yaml stuffs
 au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
@@ -293,4 +294,5 @@ let g:terraform_completion_keys = 1
 let g:terraform_registry_module_completion = 1
 
 " Set the default interpreter to Python 3
-let g:deoplete#sources#jedi#python_path = 'python3'
+let g:deoplete#sources#jedi#python_path = '/usr/bin/python3'
+let g:deoplete#sources#jedi#show_docstring = 1
