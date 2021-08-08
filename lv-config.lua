@@ -1,18 +1,14 @@
 -- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
 
 -- general
-lvim.format_on_save = false
+lvim.format_on_save = true
 lvim.lint_on_save = true
-lvim.colorscheme = "spacegray"
 lvim.colorcolumn = "120"
+lvim.colorscheme = "spacegray"
 
-lvim.lang.python.formatters = {
-  {
-    exe = "isort", -- can be yapf, or isort as well
-    args = {},
-  },
-}
-
+lvim.builtin.dap.active = true
+lvim.builtin.dashboard.active = true
+lvim.builtin.terminal.active = true
 
 -- keymappings
 lvim.leader = "space"
@@ -22,19 +18,18 @@ lvim.keys.normal_mode = {
 --   {'[d', '<PageUp>'},
 --   {']d', '<PageDown>'},
 --
---   Navigate buffers
-   {'<Tab>', ':bnext<CR>'},
-   {'<S-Tab>', ':bprevious<CR>'},
--- }
+--  Navigate buffers
+  {'<Tab>', ':bnext<CR>'},
+  {'<S-Tab>', ':bprevious<CR>'},
+}
 -- if you just want to augment the existing ones then use the utility function
 -- require("utils").add_keymap_insert_mode({ silent = true }, {
 -- { "<C-s>", ":w<cr>" },
 -- { "<C-c>", "<ESC>" },
-}
+-- })
 -- you can also use the native vim way directly
-vim.api.nvim_set_keymap("i", "<C-Space>", "compe#complete()", { noremap = true, silent = true, expr = true })
+-- vim.api.nvim_set_keymap("i", "<C-Space>", "compe#complete()", { noremap = true, silent = true, expr = true })
 
--- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.dashboard.active = true
 lvim.builtin.terminal.active = true
@@ -46,43 +41,26 @@ lvim.builtin.treesitter.ensure_installed = "maintained"
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
 
--- generic LSP settings
--- you can set a custom on_attach function that will be used for all the language servers
--- See <https://github.com/neovim/nvim-lspconfig#keybindings-and-completion>
--- lvim.lsp.on_attach_callback = function(client, bufnr)
---   local function buf_set_option(...)
---     vim.api.nvim_buf_set_option(bufnr, ...)
---   end
---   --Enable completion triggered by <c-x><c-o>
---   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
--- end
-
 -- Additional Plugins
--- lvim.plugins = {
---     {"folke/tokyonight.nvim"}, {
---         "ray-x/lsp_signature.nvim",
---         config = function() require"lsp_signature".on_attach() end,
---         event = "InsertEnter"
---     }
--- }
-
--- Autocommands (https://neovim.io/doc/user/autocmd.html)
--- lvim.autocommands.custom_groups = {
---   { "BufWinEnter", "*.lua", "setlocal ts=8 sw=8" },
--- }
-
--- Additional Leader bindings for WhichKey
-
-lvim.user_plugins = {
-  {"arcticicestudio/nord-vim"},
-  {"joshdick/onedark.vim"},
-  {"whatyouhide/vim-gotham"},
-  {"tomasr/molokai"},
-  {"vim-test/vim-test"}, 
+lvim.plugins = {
+  {"vim-test/vim-test"},
 }
 
--- require'lspconfig'.pyright.setup{}
-lvim.lang.python.linter = 'flake8'
-lvim.lang.python.isort = true
-lvim.lang.python.formatter.exe = "isort"
-lvim.lang.python.formatter.args = { "-l 160", "-m 2" }
+lvim.lang.python.formatters = {
+  {
+    exe = "isort", -- can be yapf, or isort as well
+    args = {"-l 160", "-w 2"},
+  },
+  {
+    exe = "black",
+    args = {}
+  }
+}
+
+vim.cmd([[
+  nmap <silent> t<C-n> :TestNearest<CR>
+  nmap <silent> t<C-f> :TestFile<CR>
+  nmap <silent> t<C-s> :TestSuite<CR>
+  nmap <silent> t<C-l> :TestLast<CR>
+  nmap <silent> t<C-g> :TestVisit<CR>
+]])
