@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+pip install jedi neovim black autopep8 rope jupyter importmagic epc pylint

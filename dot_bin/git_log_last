@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+    echo "I need a partial hash or commit message"
+fi
+
+HASH=$(git log --oneline | grep "$1" | awk '{ print $1 }' | head -n 1)
+
+echo_copied (){
+    echo "Copied ${HASH} to Cliboard"
+}
+
+HAS_PBCOPY=$(which pbcopy)
+HAS_XSEL=$(which xsel)
+
+if [ -f $HAS_PBCOPY ]; then
+    echo_copied
+    echo $HASH | pbcopy
+    exit 1
+fi
+
+if [ -f $HAS_XSEL ]; then
+    echo_copied
+    exit 1
+fi
+
+
