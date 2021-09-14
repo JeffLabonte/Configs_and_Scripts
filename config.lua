@@ -1,15 +1,49 @@
+-- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
+
 -- general
 lvim.format_on_save = true
 lvim.lint_on_save = true
-lvim.colorscheme = "spacegray"
+lvim.colorscheme = "onedarker"
 
+-- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
-lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
+-- add your own keymapping
+lvim.keys.normal_mode = {
+  ["<C-s>"] = ":w<cr>",
+  ["<Tab>"] = ":bnext<cr>",
+  ["<S-Tab>"] = ":bprevious<cr>"
+}
+-- unmap a default keymapping
+-- lvim.keys.normal_mode["<C-Up>"] = ""
+-- edit a default keymapping
+-- lvim.keys.normal_mode["<C-q>"] = ":q<cr>"
 
-lvim.builtin.which_key.mappings['<Tab>'] = ':bnext<CR>'
-lvim.builtin.which_key.mappings['<S-Tab>'] = ':bprevious<CR>'
+-- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
+-- lvim.builtin.telescope.on_config_done = function()
+--   local actions = require "telescope.actions"
+--   -- for input mode
+--   lvim.builtin.telescope.defaults.mappings.i["<C-j>"] = actions.move_selection_next
+--   lvim.builtin.telescope.defaults.mappings.i["<C-k>"] = actions.move_selection_previous
+--   lvim.builtin.telescope.defaults.mappings.i["<C-n>"] = actions.cycle_history_next
+--   lvim.builtin.telescope.defaults.mappings.i["<C-p>"] = actions.cycle_history_prev
+--   -- for normal mode
+--   lvim.builtin.telescope.defaults.mappings.n["<C-j>"] = actions.move_selection_next
+--   lvim.builtin.telescope.defaults.mappings.n["<C-k>"] = actions.move_selection_previous
+-- end
 
+-- Use which-key to add extra bindings with the leader-key prefix
+lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
+lvim.builtin.which_key.mappings["t"] = {
+  name = "+Trouble",
+  r = { "<cmd>Trouble lsp_references<cr>", "References" },
+  f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
+  d = { "<cmd>Trouble lsp_document_diagnostics<cr>", "Diagnosticss" },
+  q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
+  l = { "<cmd>Trouble loclist<cr>", "LocationList" },
+  w = { "<cmd>Trouble lsp_workspace_diagnostics<cr>", "Diagnosticss" },
+}
 
+-- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.dashboard.active = true
 lvim.builtin.terminal.active = true
@@ -17,7 +51,7 @@ lvim.builtin.nvimtree.side = "left"
 lvim.builtin.nvimtree.show_icons.git = 0
 
 -- if you don't want all the parsers change this to a table of the ones you want
-lvim.builtin.treesitter.ensure_installed =  "maintained"
+lvim.builtin.treesitter.ensure_installed = "maintained"
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
 
@@ -31,16 +65,35 @@ lvim.lsp.on_attach_callback = function(client, bufnr)
   --Enable completion triggered by <c-x><c-o>
   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 end
+-- you can overwrite the null_ls setup table (useful for setting the root_dir function)
+lvim.lsp.null_ls.setup = {
+  root_dir = require("lspconfig").util.root_pattern("Makefile", ".git", "node_modules"),
+}
+-- or if you need something more advanced
+lvim.lsp.null_ls.setup.root_dir = function(fname)
+  if vim.bo.filetype == "javascript" then
+    return require("lspconfig/util").root_pattern("Makefile", ".git", "node_modules")(fname)
+      or require("lspconfig/util").path.dirname(fname)
+  elseif vim.bo.filetype == "php" then
+    return require("lspconfig/util").root_pattern("Makefile", ".git", "composer.json")(fname) or vim.fn.getcwd()
+  else
+    return require("lspconfig/util").root_pattern("Makefile", ".git")(fname) or require("lspconfig/util").path.dirname(fname)
+  end
+end
 
-
+-- set a formatter if you want to override the default lsp one (if it exists)
 lvim.lang.python.formatters = {
   {
     exe = "black",
+    args = {}
   },
   {
     exe = "isort",
-    args = {"-w 2"}
-  },
+    args = {
+      '--line-length=160',
+      '--multi-line=2',
+    }
+  }
 }
 -- set an additional linter
 lvim.lang.python.linters = {
@@ -50,9 +103,30 @@ lvim.lang.python.linters = {
   }
 }
 
+-- Additional Plugins
 lvim.plugins = {
-  {"vim-test/vim-test"}, 
+    {"folke/tokyonight.nvim"}, {
+        "ray-x/lsp_signature.nvim",
+        config = function() require"lsp_signature".on_attach() end,
+        event = "InsertEnter"
+    },
+    {
+      "phaazon/hop.nvim",
+      event = "BufRead",
+      config = function()
+        require("hop").setup()
+        vim.api.nvim_set_keymap("n", "s", ":HopChar2<cr>", { silent = true })
+        vim.api.nvim_set_keymap("n", "S", ":HopWord<cr>", { silent = true })
+      end,
+    },
+    {"vim-test/vim-test"},
 }
+
+-- Autocommands (https://neovim.io/doc/user/autocmd.html)
+lvim.autocommands.custom_groups = {
+  { "BufWinEnter", "*.lua", "setlocal ts=8 sw=8" },
+}
+
 
 vim.cmd([[
   nmap <silent> t<C-n> :TestNearest<CR>
@@ -61,8 +135,3 @@ vim.cmd([[
   nmap <silent> t<C-l> :TestLast<CR>
   nmap <silent> t<C-g> :TestVisit<CR>
 ]])
-
--- Autocommands (https://neovim.io/doc/user/autocmd.html)
-lvim.autocommands.custom_groups = {
-  { "BufWinEnter", "*.lua", "setlocal ts=8 sw=8" },
-}
